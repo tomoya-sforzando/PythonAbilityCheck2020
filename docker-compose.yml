@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  python385:
+    build:
+      context: .
+    volumes:
+      - .:/usr/src/app
