@@ -1,4 +1,4 @@
-# Python Ability Check 2020 - <鹿島田>
+# Python Ability Check 2020 - <KASHIMADA Tomoya>
 
 ## How to Run
 
@@ -7,6 +7,7 @@
 1. `$ docker-compose run python385 python main.py`
 
 and down docker container
+
 1. `$docker-compose down --remove-orphans`
 
 ## References
@@ -15,4 +16,4 @@ and down docker container
 
 ## Miscellaneous
 
-It's buggy and unresolved.
+None.
