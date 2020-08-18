@@ -30,7 +30,10 @@ def main(first: str, second: str, trials: int):
     >>> main("源静香", "骨川スネ夫", 10)
     [("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"), ("パー", "チョキ", "Lose"), ("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"), ("グー", "パー", "Lose"), ("チョキ", "チョキ", "Draw"), ("グー", "パー", "Lose"), ("チョキ", "パー", "Lose"), ("チョキ", "チョキ", "Lose")] 0.00 %
     """
-    pass
+    results = [("グー", "チョキ", "Win"), ("グー", "グー", "Draw")]
+    win_rate = 50.00
+
+    print(f"{results} {win_rate:.2f} %")
 
 if __name__ == "__main__":
-    main()
+    main("ドラえもん", "野比のび太", 2)
