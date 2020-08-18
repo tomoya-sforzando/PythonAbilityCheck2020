@@ -30,6 +30,9 @@ def main(first: str, second: str, trials: int):
     >>> main("源静香", "骨川スネ夫", 10)
     [("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"), ("パー", "チョキ", "Lose"), ("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"), ("グー", "パー", "Lose"), ("チョキ", "チョキ", "Draw"), ("グー", "パー", "Lose"), ("チョキ", "パー", "Lose"), ("チョキ", "チョキ", "Lose")] 0.00 %
     """
+    if type(first) is not str or type(second) is not str or type(trials) is not int or trials < 0 or 10000 < trials:
+        raise ValueError()
+
     results = [("グー", "チョキ", "Win"), ("グー", "グー", "Draw")]
     win_rate = 50.00
 
