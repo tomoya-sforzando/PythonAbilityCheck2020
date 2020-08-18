@@ -1,4 +1,9 @@
-# Python Ability Check 2020 - <KASHIMADA Tomoya>
+# Python Ability Check 2020 - KASHIMADA Tomoya
+
+## Requirements
+
+- Python 3.8.5
+- Docker
 
 ## How to Run
 
