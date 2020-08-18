@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+from player import Player
+import rps_env
+
+
 def main(first: str, second: str, trials: int):
     """
     Parameters
@@ -30,13 +34,32 @@ def main(first: str, second: str, trials: int):
     >>> main("源静香", "骨川スネ夫", 10)
     [("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"), ("パー", "チョキ", "Lose"), ("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"), ("グー", "パー", "Lose"), ("チョキ", "チョキ", "Draw"), ("グー", "パー", "Lose"), ("チョキ", "パー", "Lose"), ("チョキ", "チョキ", "Lose")] 0.00 %
     """
-    if type(first) is not str or type(second) is not str or type(trials) is not int or trials < 0 or 10000 < trials:
+    if type(first) is not str or not first in rps_env.player or type(second) is not str or not second in rps_env.player or type(trials) is not int or trials < 0 or 10000 < trials:
         raise ValueError()
 
-    results = [("グー", "チョキ", "Win"), ("グー", "グー", "Draw")]
-    win_rate = 50.00
+    player_1st = Player(first)
+    player_2nd = Player(second)
 
+    results = []
+    for i in range(trials):
+        player_1st_rps = player_1st.select_rps()
+        player_2nd_rps = player_2nd.select_rps()
+        winner_rps = rps_env.rps_table[player_1st_rps][player_2nd_rps]
+        if winner_rps == player_1st_rps:
+            player_1st.record_result("Win")
+            player_2nd.record_result("Lose")
+        elif winner_rps == player_2nd_rps:
+            player_1st.record_result("Lose")
+            player_2nd.record_result("Win")
+        else:
+            player_1st.record_result("Draw")
+            player_2nd.record_result("Draw")
+        results.append((rps_env.game_map[player_1st_rps],
+                        rps_env.game_map[player_2nd_rps], player_1st.results[-1]))
+
+    win_rate = player_1st.calculate_win_rate()
     print(f"{results} {win_rate:.2f} %")
 
+
 if __name__ == "__main__":
-    main("ドラえもん", "野比のび太", 2)
+    main("源静香", "源静香", 10000)
