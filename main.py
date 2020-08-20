@@ -62,4 +62,13 @@ def main(first: str, second: str, trials: int):
 
 
 if __name__ == "__main__":
-    main("源静香", "源静香", 10000)
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--first", type=str, default="源静香", choices=[
+                        "源静香", "ドラえもん", "野比のび太", "骨川スネ夫"])
+    parser.add_argument("--second", type=str, default="源静香", choices=[
+                        "源静香", "ドラえもん", "野比のび太", "骨川スネ夫"])
+    parser.add_argument("--trials", type=int, default=1000)
+    args = parser.parse_args()
+
+    main(args.first, args.second, args.trials)
