@@ -5,7 +5,7 @@ import rps_env
 class Player:
     def __init__(self, name: str):
         self._name = name
-        self.rps = rps_env.players_rps.get(name)
+        self.selectable_rps = rps_env.players_rps.get(name)
         self.selects = []
         self.results = []
 
@@ -20,12 +20,15 @@ class Player:
                 self.selects.append(self.selects[-1])
                 return self.selects[-1]
 
-        selected = random.choice(self.rps)
+        selected = random.choice(self.selectable_rps)
         self.selects.append(selected)
         return selected
 
     def record_result(self, result: str):
         self.results.append(result)
+
+    def selected_rate(self, rps: int) -> float:
+        return self.selects.count(rps) / len(self.selects) * 100
 
     def win_rate(self) -> float:
         return self.results.count('Win') / len(self.results) * 100

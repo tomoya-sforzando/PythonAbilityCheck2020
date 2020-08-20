@@ -10,17 +10,23 @@ from player import Player
 import rps_env
 
 
-def test_win_rate_of_shizuka():
+def test_rate_of_shizuka_selected():
     shizuka = Player("源静香")
     doraemon = Player("ドラえもん")
     nobita = Player("野比のび太")
     suneo = Player("骨川スネ夫")
     dorami = Player("ドラミ")
     players = [shizuka, doraemon, nobita, suneo, dorami]
+
     for i in range(10000):
         rps(shizuka, players[randint(0, len(players) - 1)], 1)
 
-    assert 23.33 < shizuka.win_rate() and shizuka.win_rate() < 43.33
+    assert 23.33 < shizuka.selected_rate(0) \
+        and shizuka.selected_rate(0) < 43.33
+    assert 23.33 < shizuka.selected_rate(1) \
+        and shizuka.selected_rate(1) < 43.33
+    assert 23.33 < shizuka.selected_rate(2) \
+        and shizuka.selected_rate(2) < 43.33
 
 
 @pytest.mark.skip()
