@@ -8,10 +8,12 @@
 ## How to Run
 
 ### 1. Setup docker container
+
 1. Boot 'Docker Desktop'
 1. `$ docker-compose up --detach --build`
 
 ### 2. Run
+
 `$ docker-compose run python385 python main.py`
 
 or you can set arguments.  
