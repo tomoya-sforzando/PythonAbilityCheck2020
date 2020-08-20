@@ -17,7 +17,11 @@
 or you can set arguments.  
 e.g. `$ docker-compose run python385 python main.py --first ドラえもん --second 野比のび太 --trials 10`
 
-### 3. Close docker container
+### 3. Test
+
+`$ docker-compose run python385 pytest .`
+
+### 4. Close docker container
 
 `$ docker-compose down --remove-orphans`
 

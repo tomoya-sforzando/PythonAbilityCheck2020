@@ -46,6 +46,13 @@ def main(first: str, second: str, trials: int):
     player_1st = Player(first)
     player_2nd = Player(second)
 
+    results = rps(player_1st, player_2nd, trials)
+
+    win_rate = player_1st.win_rate()
+    print(f"{results} {win_rate:.2f} %")
+
+
+def rps(player_1st: Player, player_2nd: Player, trials: int):
     results = []
     for i in range(trials):
         player_1st_rps = player_1st.select_rps()
@@ -63,9 +70,7 @@ def main(first: str, second: str, trials: int):
         results.append((rps_env.game_map[player_1st_rps],
                         rps_env.game_map[player_2nd_rps],
                         player_1st.results[-1]))
-
-    win_rate = player_1st.calculate_win_rate()
-    print(f"{results} {win_rate:.2f} %")
+    return results
 
 
 if __name__ == "__main__":
