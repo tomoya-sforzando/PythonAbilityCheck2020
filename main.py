@@ -57,7 +57,7 @@ def rps(player_1st: Player, player_2nd: Player, trials: int):
     for i in range(trials):
         player_1st_rps = player_1st.select_rps()
         player_2nd_rps = player_2nd.select_rps()
-        winner_rps = rps_env.rps_table[player_1st_rps][player_2nd_rps]
+        winner_rps = rps_env.rps_judge_table[player_1st_rps][player_2nd_rps]
         if winner_rps == player_1st_rps:
             player_1st.record_result("Win")
             player_2nd.record_result("Lose")
@@ -67,8 +67,8 @@ def rps(player_1st: Player, player_2nd: Player, trials: int):
         else:
             player_1st.record_result("Draw")
             player_2nd.record_result("Draw")
-        results.append((rps_env.game_map[player_1st_rps],
-                        rps_env.game_map[player_2nd_rps],
+        results.append((rps_env.rps_map[player_1st_rps],
+                        rps_env.rps_map[player_2nd_rps],
                         player_1st.results[-1]))
     return results
 
