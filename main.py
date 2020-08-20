@@ -34,7 +34,13 @@ def main(first: str, second: str, trials: int):
     >>> main("源静香", "骨川スネ夫", 10)
     [("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"), ("パー", "チョキ", "Lose"), ("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"), ("グー", "パー", "Lose"), ("チョキ", "チョキ", "Draw"), ("グー", "パー", "Lose"), ("チョキ", "パー", "Lose"), ("チョキ", "チョキ", "Lose")] 0.00 %
     """
-    if type(first) is not str or not first in rps_env.player or type(second) is not str or not second in rps_env.player or type(trials) is not int or trials < 0 or 10000 < trials:
+    if not isinstance(
+            first,
+            str) or first not in rps_env.player or not isinstance(
+            second,
+            str) or second not in rps_env.player or not isinstance(
+                trials,
+            int) or trials < 0 or 10000 < trials:
         raise ValueError()
 
     player_1st = Player(first)
@@ -55,7 +61,8 @@ def main(first: str, second: str, trials: int):
             player_1st.record_result("Draw")
             player_2nd.record_result("Draw")
         results.append((rps_env.game_map[player_1st_rps],
-                        rps_env.game_map[player_2nd_rps], player_1st.results[-1]))
+                        rps_env.game_map[player_2nd_rps],
+                        player_1st.results[-1]))
 
     win_rate = player_1st.calculate_win_rate()
     print(f"{results} {win_rate:.2f} %")
@@ -65,9 +72,9 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--first", type=str, default="源静香", choices=[
-                        "源静香", "ドラえもん", "野比のび太", "骨川スネ夫"])
-    parser.add_argument("--second", type=str, default="源静香", choices=[
-                        "源静香", "ドラえもん", "野比のび太", "骨川スネ夫"])
+                        "源静香", "ドラえもん", "野比のび太", "骨川スネ夫", "ドラミ"])
+    parser.add_argument("--second", type=str, default="ドラミ", choices=[
+                        "源静香", "ドラえもん", "野比のび太", "骨川スネ夫", "ドラミ"])
     parser.add_argument("--trials", type=int, default=1000)
     args = parser.parse_args()
 
