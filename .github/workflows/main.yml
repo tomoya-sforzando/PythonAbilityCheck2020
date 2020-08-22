@@ -3,14 +3,13 @@
 
 name: PAC2020-Python
 
-on:
-  push:
-    branches: [ $default-branch ]
+on: [ workflow_dispatch, push ]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+
     steps:
     - name: Check out the repository
       uses: actions/checkout@v2
@@ -21,6 +20,6 @@ jobs:
     - name: Lint
       run: docker exec pac2020-python flake8 . --config .flake8
     - name: Test
-      run: docker exec pac2020-python pytest .
+      run: docker exec pac2020-python pytest . --capture=no
     - name: Run
       run: docker exec pac2020-python python main.py

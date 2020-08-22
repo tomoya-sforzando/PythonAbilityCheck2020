@@ -40,7 +40,7 @@ optional arguments:
 
 ### 3. Test
 
-`$ docker exec pac2020-python pytest .`
+`$ docker exec pac2020-python pytest . --capture=no`
 
 ### 4. Clear docker container and image
 
