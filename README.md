@@ -1,6 +1,7 @@
 # Python Ability Check 2020 - KASHIMADA Tomoya
 
 ![PAC2020-Python](https://github.com/tomoya-sforzando/PythonAbilityCheck2020/workflows/PAC2020-Python/badge.svg)
+[![codecov](https://codecov.io/gh/tomoya-sforzando/PythonAbilityCheck2020/branch/master/graph/badge.svg)](https://codecov.io/gh/tomoya-sforzando/PythonAbilityCheck2020)
 
 ## Requirements
 
