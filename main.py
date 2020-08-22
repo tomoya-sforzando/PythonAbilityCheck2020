@@ -9,38 +9,36 @@ def main(first: str, second: str, trials: int):
     Parameters
     --------
     first, second: string
-        源静香: グー、チョキ、パーをちょうど1/3の確率ずつ出す。
-        野比のび太: 最初はランダム、勝ったら次も同じ手を出す。
-        ドラえもん: グーしか出せない。
-        骨川スネ夫: チョキとパーしか出せない。
-    trials: int
-        試行回数（max: 10000）
+        源静香: グー、チョキ、パーをちょうど1/3の確率ずつ出す
+        野比のび太: 最初はランダム、勝ったら次も同じ手を出す
+        ドラえもん: グーしか出せない
+        骨川スネ夫: チョキとパーしか出せない
+        ドラミ: グーを50%, チョキとパーを25%の確率で出す
+    trials:
+        int試行回数（max: 10000）
 
     Returns
     --------
-    要素数=試行回数の配列と勝率
-    配列の要素はタプル
-        [("<firstが出した手 {"グー" | "チョキ" | "パー"}>", "<secondが出した手 {"グー" | "チョキ" | "パー"}>", "<firstから見た勝敗 {"Win" | "Draw" | "Lose"}>"), ..., ()] <firstの勝率(小数点下2桁)> %
+    要素数=試行回数の配列と勝率配列の要素はタプル
+    [("<firstが出した手 {"グー" | "チョキ" | "パー"}>", "<secondが出した手　{"グー" | "チョキ" | "パー"}>",
+    "<firstから見た勝敗 {"Win" | "Draw" | "Lose"}>"), ..., ()] <firstの勝率(小数点下2桁)> %
 
     Raises
     --------
-    ValueError
-        引数の文字列や試行回数がおかしい場合
+    ValueError引数の文字列や試行回数がおかしい場合
 
     Examples
     --------
-    >>> main("ドラえもん", "野比のび太", 10)
-    [("グー", "チョキ", "Win"), ("グー", "グー", "Draw"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose")] 10.00 %
-    >>> main("源静香", "骨川スネ夫", 10)
-    [("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"), ("パー", "チョキ", "Lose"), ("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"), ("グー", "パー", "Lose"), ("チョキ", "チョキ", "Draw"), ("グー", "パー", "Lose"), ("チョキ", "パー", "Lose"), ("チョキ", "チョキ", "Lose")] 0.00 %
+    >>> main("ドラえもん", "野比のび太", 10) [("グー", "チョキ", "Win"), ("グー", "グー", "Draw"), ("グー", "パー", "Lose"),
+    ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー",
+    "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose")] 10.00 % main("源静香", "骨川スネ夫", 10) [("グー", "パー",
+    "Lose"), ("パー", "チョキ", "Lose"), ("パー", "チョキ", "Lose"), ("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"),
+    ("グー", "パー", "Lose"), ("チョキ", "チョキ", "Draw"), ("グー", "パー", "Lose"), ("チョキ", "パー", "Lose"), ("チョキ",
+    "チョキ", "Lose")] 0.00 %
     """
-    if not isinstance(
-            first,
-            str) or first not in rps_env.player or not isinstance(
-            second,
-            str) or second not in rps_env.player or not isinstance(
-                trials,
-            int) or trials < 0 or 10000 < trials:
+    if not isinstance(first, str) or first not in rps_env.player or \
+       not isinstance(second, str) or second not in rps_env.player or \
+       not isinstance(trials, int) or trials < 0 or 10000 < trials:
         raise ValueError()
 
     player_1st = Player(first)
