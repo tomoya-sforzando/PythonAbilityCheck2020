@@ -20,6 +20,6 @@ jobs:
     - name: Lint
       run: docker exec pac2020-python flake8 . --config .flake8
     - name: Test
-      run: docker exec pac2020-python pytest .
+      run: docker exec pac2020-python pytest . --capture=no
     - name: Run
       run: docker exec pac2020-python python main.py
