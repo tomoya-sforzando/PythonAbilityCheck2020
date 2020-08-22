@@ -1,5 +1,7 @@
 # Python Ability Check 2020 - KASHIMADA Tomoya
 
+![PAC2020-Python](https://github.com/tomoya-sforzando/PythonAbilityCheck2020/workflows/PAC2020-Python/badge.svg)
+
 ## Requirements
 
 - Python 3.8.5
