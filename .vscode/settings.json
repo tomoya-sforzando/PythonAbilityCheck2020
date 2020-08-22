@@ -4,6 +4,7 @@
   "python.linting.pylintEnabled": false,
   "cSpell.words": [
     "argparse",
+    "codecov",
     "doraemon",
     "isclose",
     "itertools",

@@ -20,6 +20,10 @@ jobs:
     - name: Lint
       run: docker exec pac2020-python flake8 . --config .flake8
     - name: Test
-      run: docker exec pac2020-python pytest . --capture=no
+      run: docker exec pac2020-python pytest . --capture=no --cov --cov-report=xml
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        fail_ci_if_error: true
     - name: Run
       run: docker exec pac2020-python python main.py
