@@ -1,16 +1,16 @@
+from itertools import product
+from math import isclose
+from timeit import timeit
+
 import pytest
 from tqdm import tqdm
 
-from itertools import product
-from random import randint
-from timeit import timeit
-
+import rps_env
 from main import main, rps
 from player import Player
-import rps_env
 
 
-def test_rate_of_shizuka_selected():
+def test_rate_of_shizuka_selected(trials: int = 10000, relative_tolerance: float = 0.1):
     shizuka = Player("源静香")
     doraemon = Player("ドラえもん")
     nobita = Player("野比のび太")
@@ -18,15 +18,14 @@ def test_rate_of_shizuka_selected():
     dorami = Player("ドラミ")
     players = [shizuka, doraemon, nobita, suneo, dorami]
 
-    for i in range(10000):
-        rps(shizuka, players[randint(0, len(players) - 1)], 1)
+    for player in tqdm(players):
+        rps(shizuka, player, round(trials / len(players)))
 
-    assert 23.33 < shizuka.selected_rate(0) \
-        and shizuka.selected_rate(0) < 43.33
-    assert 23.33 < shizuka.selected_rate(1) \
-        and shizuka.selected_rate(1) < 43.33
-    assert 23.33 < shizuka.selected_rate(2) \
-        and shizuka.selected_rate(2) < 43.33
+    print(shizuka.get_rate_of_selected_hand(0))
+
+    assert isclose(100 / 3, shizuka.get_rate_of_selected_hand(0), rel_tol=relative_tolerance)
+    assert isclose(100 / 3, shizuka.get_rate_of_selected_hand(1), rel_tol=relative_tolerance)
+    assert isclose(100 / 3, shizuka.get_rate_of_selected_hand(2), rel_tol=relative_tolerance)
 
 
 @pytest.mark.skip()
@@ -38,6 +37,6 @@ def measure_time(stmt: str, trials: int = 100) -> float:
 
 def test_main():
     assert dir(main)
-    matches = list(product(rps_env.player, repeat=2))
+    matches = list(product(rps_env.players, repeat=2))
     for first, second in tqdm(matches):
         assert measure_time(f"main('{first}', '{second}', 1000)", 16) < 1.0
