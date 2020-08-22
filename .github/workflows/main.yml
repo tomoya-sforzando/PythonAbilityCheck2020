@@ -1,0 +1,26 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: PAC2020-Python
+
+on:
+  push:
+    branches: [ $default-branch ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v2
+    - name: Setup Docker container
+      run: |
+        docker build --pull --rm -f Dockerfile -t pac2020:latest .
+        docker run -it --rm --name pac2020-python -v "$PWD":/usr/src/app -w /usr/src/app -d pac2020:latest /bin/bash
+    - name: Lint
+      run: docker exec pac2020-python flake8 . --config .flake8
+    - name: Test
+      run: docker exec pac2020-python pytest .
+    - name: Run
+      run: docker exec pac2020-python python main.py
