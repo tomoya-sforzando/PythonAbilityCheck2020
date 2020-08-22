@@ -3,14 +3,13 @@
 
 name: PAC2020-Python
 
-on:
-  push:
-    branches: [ $default-branch ]
+on: [ workflow_dispatch, push ]
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+
     steps:
     - name: Check out the repository
       uses: actions/checkout@v2
