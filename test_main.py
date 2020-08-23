@@ -28,6 +28,11 @@ def test_rate_of_shizuka_selected(trials: int = 10000, relative_tolerance: float
     assert isclose(100 / 3, shizuka.get_rate_of_selected_hand(2), rel_tol=relative_tolerance)
 
 
+def test_main_arguments_failure():
+    with pytest.raises(ValueError):
+        main("源静香", "バカボン", 100)
+
+
 @pytest.mark.skip()
 def measure_time(stmt: str, trials: int = 100) -> float:
     t = timeit(stmt, globals=globals(), number=trials)
