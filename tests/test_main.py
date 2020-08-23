@@ -13,6 +13,12 @@ def test_main_arguments_failure():
         main("源静香", "バカボン", 100)
 
 
+def test_main_with_arguments_from_argparse(arg_first: str, arg_second: str, arg_trials: int):
+    assert arg_first == "野比のび太"
+    assert arg_second == "ドラえもん"
+    assert arg_trials == 100
+
+
 @pytest.mark.skip()
 def measure_time(stmt: str, trials: int = 100) -> float:
     t = timeit(stmt, globals=globals(), number=trials)
