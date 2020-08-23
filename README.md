@@ -51,6 +51,7 @@ optional arguments:
 
 - [Rock Paper Scissors in Python - A Complete Step-By-Step Guide - AskPython](https://www.askpython.com/python/examples/rock-paper-scissors-in-python)
 - [argparse --- コマンドラインオプション、引数、サブコマンドのパーサー — Python 3.8.5 ドキュメント](https://docs.python.org/ja/3/library/argparse.html)
+- [unit testing - How do you write tests for the argparse portion of a python module? - Stack Overflow](https://stackoverflow.com/questions/18160078/how-do-you-write-tests-for-the-argparse-portion-of-a-python-module)
 
 ## Miscellaneous
 
