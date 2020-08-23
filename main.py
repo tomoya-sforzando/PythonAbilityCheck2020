@@ -39,8 +39,8 @@ def main(first: str, second: str, trials: int):
     "チョキ", "Lose")] 0.00 %
     """
     if not isinstance(first, str) or first not in rps_env.players or \
-        not isinstance(second, str) or second not in rps_env.players or \
-        not isinstance(trials, int) or trials < 0 or 10000 < trials:
+       not isinstance(second, str) or second not in rps_env.players or \
+       not isinstance(trials, int) or trials < 0 or 10000 < trials:
         raise ValueError()
 
     player_1st = Player(first)
