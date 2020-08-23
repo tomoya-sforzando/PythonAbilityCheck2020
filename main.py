@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import argparse
+
 import rps_env
 from player import Player
 
@@ -71,13 +73,16 @@ def rps(player_1st: Player, player_2nd: Player, trials: int):
     return results
 
 
-if __name__ == "__main__":
-    import argparse
-
+def parse_args(args):
     parser = argparse.ArgumentParser()
     parser.add_argument("--first", type=str, default="源静香", choices=rps_env.players, help="Select the first player")
     parser.add_argument("--second", type=str, default="ドラミ", choices=rps_env.players, help="Select the second player")
     parser.add_argument("--trials", type=int, default=1000, help="Set number of trials. max:10000")
-    args = parser.parse_args()
+    return parser.parse_args(args)
 
-    main(args.first, args.second, args.trials)
+
+if __name__ == "__main__":
+    import sys
+
+    parser = parse_args(sys.argv[1:])
+    main(parser.first, parser.second, parser.trials)
