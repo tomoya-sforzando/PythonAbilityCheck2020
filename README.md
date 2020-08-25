@@ -3,6 +3,8 @@
 ![PAC2020-Python](https://github.com/tomoya-sforzando/PythonAbilityCheck2020/workflows/PAC2020-Python/badge.svg)
 [![codecov](https://codecov.io/gh/tomoya-sforzando/PythonAbilityCheck2020/branch/master/graph/badge.svg)](https://codecov.io/gh/tomoya-sforzando/PythonAbilityCheck2020)
 
+![ScreenShot](https://user-images.githubusercontent.com/40506652/91203096-af66e980-e73d-11ea-9104-a0449cac5fc6.png)
+
 ## Requirements
 
 - Python 3.8.5
@@ -18,24 +20,23 @@
 
 ### 2. Run
 
+Play games with random 2 Players.
 `$ docker exec pac2020-python python main.py`
 
 or you can set arguments.  
-e.g. `$ docker exec pac2020-python python main.py --first ドラえもん --second 野比のび太 --trials 10`
+e.g. `$ docker exec pac2020-python python main.py --players 源静香 --players 野比のび太 --players ドラえもん --trials 10`
 
 more information for arguments are
 
 ```shell
 $ docker exec pac2020-python python main.py -h
-usage: main.py [-h] [--first {源静香,ドラえもん,野比のび太,骨川スネ夫,ドラミ}]
-               [--second {源静香,ドラえもん,野比のび太,骨川スネ夫,ドラミ}] [--trials TRIALS]
+usage: main.py [-h] [--players {源静香,ドラえもん,野比のび太,骨川スネ夫,ドラミ}] [--trials TRIALS]
 
 optional arguments:
   -h, --help            show this help message and exit
-  --first {源静香,ドラえもん,野比のび太,骨川スネ夫,ドラミ}
-                        Select the first player
-  --second {源静香,ドラえもん,野比のび太,骨川スネ夫,ドラミ}
-                        Select the second player
+  --players {源静香,ドラえもん,野比のび太,骨川スネ夫,ドラミ}
+                        Set player. Multiple players can be added with the
+                        same arguments
   --trials TRIALS       Set number of trials. max:10000
 ```
 

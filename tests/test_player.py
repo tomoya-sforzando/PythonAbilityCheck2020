@@ -1,4 +1,5 @@
 from math import isclose
+import random
 
 import pytest
 from tqdm import tqdm
@@ -10,6 +11,23 @@ from player import Player
 def test_make_instance():
     shizuka = Player("源静香")
     assert shizuka.name == "源静香"
+
+
+def test_get_current_hand():
+    shizuka = Player("源静香")
+    current_hand = ""
+    for _ in range(10):
+        current_hand = shizuka.select_hand()
+    assert shizuka.get_current_hand() == current_hand
+
+
+def test_get_current_result():
+    shizuka = Player("源静香")
+    current_result = ""
+    for _ in range(10):
+        current_result = random.choice(["Win", "Lose", "Draw"])
+        shizuka.record_result(current_result)
+    assert shizuka.get_current_result() == current_result
 
 
 @pytest.mark.skip()
