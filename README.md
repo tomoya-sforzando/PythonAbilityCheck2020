@@ -18,24 +18,23 @@
 
 ### 2. Run
 
+Play games with random 2 Players.
 `$ docker exec pac2020-python python main.py`
 
 or you can set arguments.  
-e.g. `$ docker exec pac2020-python python main.py --first ドラえもん --second 野比のび太 --trials 10`
+e.g. `$ docker exec pac2020-python python main.py --players 源静香 --players 野比のび太 --players ドラえもん --trials 10`
 
 more information for arguments are
 
 ```shell
 $ docker exec pac2020-python python main.py -h
-usage: main.py [-h] [--first {源静香,ドラえもん,野比のび太,骨川スネ夫,ドラミ}]
-               [--second {源静香,ドラえもん,野比のび太,骨川スネ夫,ドラミ}] [--trials TRIALS]
+usage: main.py [-h] [--players {源静香,ドラえもん,野比のび太,骨川スネ夫,ドラミ}] [--trials TRIALS]
 
 optional arguments:
   -h, --help            show this help message and exit
-  --first {源静香,ドラえもん,野比のび太,骨川スネ夫,ドラミ}
-                        Select the first player
-  --second {源静香,ドラえもん,野比のび太,骨川スネ夫,ドラミ}
-                        Select the second player
+  --players {源静香,ドラえもん,野比のび太,骨川スネ夫,ドラミ}
+                        Set player. Multiple players can be added with the
+                        same arguments
   --trials TRIALS       Set number of trials. max:10000
 ```
 

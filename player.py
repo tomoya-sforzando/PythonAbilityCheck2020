@@ -25,6 +25,12 @@ class Player:
         self.selects.append(selected)
         return selected
 
+    def get_current_hand(self) -> int:
+        return self.selects[-1]
+
+    def get_current_result(self) -> int:
+        return self.results[-1]
+
     def record_result(self, result: str):
         self.results.append(result)
 

@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 
 import argparse
+import random
+from typing import List, Tuple
 
 import rps_env
 from player import Player
 
 
-def main(first: str, second: str, trials: int):
+def main(players: List[str], trials: int):
     """
     Parameters
     --------
-    first, second: string
+    players: list<str>
         源静香: グー、チョキ、パーをちょうど1/3の確率ずつ出す
         野比のび太: 最初はランダム、勝ったら次も同じ手を出す
         ドラえもん: グーしか出せない
@@ -31,53 +33,61 @@ def main(first: str, second: str, trials: int):
 
     Examples
     --------
-    >>> main("ドラえもん", "野比のび太", 10) [("グー", "チョキ", "Win"), ("グー", "グー", "Draw"), ("グー", "パー", "Lose"),
-    ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー",
-    "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose")] 10.00 % main("源静香", "骨川スネ夫", 10) [("グー", "パー",
-    "Lose"), ("パー", "チョキ", "Lose"), ("パー", "チョキ", "Lose"), ("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"),
-    ("グー", "パー", "Lose"), ("チョキ", "チョキ", "Draw"), ("グー", "パー", "Lose"), ("チョキ", "パー", "Lose"), ("チョキ",
-    "チョキ", "Lose")] 0.00 %
+    >>> main("ドラえもん", "野比のび太", 10)
+    [("グー", "チョキ", "Win"), ("グー", "グー", "Draw"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー",
+    "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー", "パー", "Lose"), ("グー",
+    "パー", "Lose")] 10.00 % main("源静香", "骨川スネ夫", 10) [("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"), ("パー",
+    "チョキ", "Lose"), ("グー", "パー", "Lose"), ("パー", "チョキ", "Lose"), ("グー", "パー", "Lose"), ("チョキ", "チョキ",
+    "Draw"), ("グー", "パー", "Lose"), ("チョキ", "パー", "Lose"), ("チョキ", "チョキ", "Lose")] 0.00 %
     """
-    if not isinstance(first, str) or first not in rps_env.players or \
-       not isinstance(second, str) or second not in rps_env.players or \
+    # Set player when not selected
+    if not players:
+        players = []
+    if len(players) < 2:
+        while len(players) < 2:
+            players.append(random.choice(rps_env.players))
+
+    if sum([1 for player_name in players if not isinstance(player_name, str)]) or \
+       sum([1 for player_name in players if player_name not in rps_env.players]) or \
        not isinstance(trials, int) or trials < 0 or 10000 < trials:
         raise ValueError()
 
-    player_1st = Player(first)
-    player_2nd = Player(second)
+    player_tuple = tuple(Player(player) for player in players)
 
-    results = rps(player_1st, player_2nd, trials)
+    results = rps(player_tuple, trials)
 
-    win_rate = player_1st.get_rate_of_win()
+    win_rate = player_tuple[0].get_rate_of_win()
+    print(f"{' vs '.join(players)}, {trials=}")
     print(f"{results} {win_rate:.2f} %")
 
 
-def rps(player_1st: Player, player_2nd: Player, trials: int):
+def rps(players: Tuple[Player], trials: int):
     results = []
-    for i in range(trials):
-        player_1st_hand = player_1st.select_hand()
-        player_2nd_hand = player_2nd.select_hand()
-        winner_rps = rps_env.rps_judge_table[player_1st_hand][player_2nd_hand]
-        if winner_rps == player_1st_hand:
-            player_1st.record_result("Win")
-            player_2nd.record_result("Lose")
-        elif winner_rps == player_2nd_hand:
-            player_1st.record_result("Lose")
-            player_2nd.record_result("Win")
+    for _ in range(trials):
+        player_hands = [player.select_hand() for player in players]
+        staged_hands = tuple(set(player_hands))
+        if len(staged_hands) == 1 or 2 < len(staged_hands):
+            for player in players:
+                player.record_result("Draw")
         else:
-            player_1st.record_result("Draw")
-            player_2nd.record_result("Draw")
-        results.append((rps_env.rps_map[player_1st_hand],
-                        rps_env.rps_map[player_2nd_hand],
-                        player_1st.results[-1]))
+            winner_rps = rps_env.rps_judge_table[staged_hands[0]][staged_hands[1]]
+            for player in players:
+                if player.get_current_hand() == winner_rps:
+                    player.record_result("Win")
+                else:
+                    player.record_result("Lose")
+
+        hands_ja = [rps_env.rps_map[hand] for hand in player_hands]
+        results.append(tuple(hands_ja + [players[0].get_current_result()]))
+
     return results
 
 
 def parse_args(args):
     parser = argparse.ArgumentParser()
-    parser.add_argument("--first", type=str, default="源静香", choices=rps_env.players, help="Select the first player")
-    parser.add_argument("--second", type=str, default="ドラミ", choices=rps_env.players, help="Select the second player")
-    parser.add_argument("--trials", type=int, default=1000, help="Set number of trials. max:10000")
+    parser.add_argument("--players", action="append", choices=rps_env.players,
+                        help="Set player. Multiple players can be added with the same arguments")
+    parser.add_argument("--trials", type=int, default=10, help="Set number of trials. max:10000")
     return parser.parse_args(args)
 
 
@@ -85,4 +95,4 @@ if __name__ == "__main__":
     import sys
 
     parser = parse_args(sys.argv[1:])
-    main(parser.first, parser.second, parser.trials)
+    main(parser.players, parser.trials)
